@@ -3,10 +3,9 @@ from django.contrib.auth.models import User, auth
 from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import Profile, Post
+from .models import Profile, Post, LikePost
 
 @login_required(login_url='signin')
-
 def index(request):
     user_object = User.objects.get(username=request.user.username)
     user_profile = Profile.objects.get(user=user_object)
@@ -29,6 +28,16 @@ def upload(request):
     else:
         return redirect('/')
     return HttpResponse('<h1>Upload View</h1>')
+
+@login_required(login_url='signin')
+def like_post(request):
+    username - request.user.username
+    post_id = request.GET.get('post_id')
+
+    post = Posts.objects.get(id=post_id)
+
+    like_filter = LikePost.objects.filter(post_id=post_id, username=username).first()
+    
 
 @login_required(login_url='signin')
 def settings(request):
